@@ -1,8 +1,21 @@
+import {useState} from 'react';
+import axios from 'axios';
 export default function home() {
+  const [data,setData]= useState({})
+  function handleChange(e){
+    setData({...data,[e.target.id]:e.target.value})
+
+  }
+  async function handleSubmit(e){
+    e.preventDefault();
+    let res = await axios.post("/api/users",data);
+
+    console.log(data)
+  }
   return (
     <div class="container mt-5">
       <h2>user Added form </h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div class="mb-3">
           <label for="name" class="form-label">
             Name
@@ -12,6 +25,7 @@ export default function home() {
             class="form-control"
             id="name"
             placeholder="Enter your name"
+            onChange={handleChange}
           />
         </div>
         <div class="mb-3">
@@ -22,6 +36,7 @@ export default function home() {
             type="tel"
             class="form-control"
             id="phone"
+            onChange={handleChange}
             placeholder="Enter your phone number"
           />
         </div>
@@ -33,6 +48,7 @@ export default function home() {
             type="email"
             class="form-control"
             id="email"
+            onChange={handleChange}
             placeholder="Enter your email address"
           />
         </div>
@@ -45,6 +61,7 @@ export default function home() {
             class="form-control"
             id="age"
             placeholder="Enter your age"
+            onChange={handleChange}
           />
         </div>
         <div class="mb-3">
@@ -55,6 +72,7 @@ export default function home() {
             type="password"
             class="form-control"
             id="password"
+            onChange={handleChange}
             placeholder="Enter your password"
           />
         </div>
