@@ -1,82 +1,89 @@
-import {useState} from 'react';
+"use client";
+import { useState } from 'react';
 import axios from 'axios';
-export default function home() {
-  const [data,setData]= useState({})
-  function handleChange(e){
-    setData({...data,[e.target.id]:e.target.value})
 
+export default function Home() {
+  const [data, setData] = useState({});
+
+  function handleChange(e) {
+    setData({ ...data, [e.target.id]: e.target.value });
   }
-  async function handleSubmit(e){
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    let res = await axios.post("/api/users",data);
-
-    console.log(data)
+    try {
+      let res = await axios.post("/api/users", data);
+      console.log(res.data);
+    } catch (error) {
+      console.error("There was an error submitting the form:", error);
+    }
   }
+
   return (
-    <div class="container mt-5">
-      <h2>user Added form </h2>
+    <div className="container mt-5">
+      <h2>User Added Form</h2>
       <form onSubmit={handleSubmit}>
-        <div class="mb-3">
-          <label for="name" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
             Name
           </label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="name"
             placeholder="Enter your name"
             onChange={handleChange}
           />
         </div>
-        <div class="mb-3">
-          <label for="phone" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="phone" className="form-label">
             Phone
           </label>
           <input
             type="tel"
-            class="form-control"
+            className="form-control"
             id="phone"
             onChange={handleChange}
             placeholder="Enter your phone number"
           />
         </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
             Email
           </label>
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             id="email"
             onChange={handleChange}
             placeholder="Enter your email address"
           />
         </div>
-        <div class="mb-3">
-          <label for="age" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="age" className="form-label">
             Age
           </label>
           <input
             type="number"
-            class="form-control"
+            className="form-control"
             id="age"
             placeholder="Enter your age"
             onChange={handleChange}
           />
         </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
             Password
           </label>
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             id="password"
             onChange={handleChange}
             placeholder="Enter your password"
           />
         </div>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>
