@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(() => {
     async function getData() {
       try {
-        let res = await axios.get('/api/users/create');
+        let res = await axios.get('/api/users');
         setData(res.data);
         console.log(res.data);
       } catch (error) {
