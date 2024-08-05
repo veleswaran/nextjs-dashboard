@@ -1,9 +1,8 @@
-// pages/api/carts.js
-import pool from '../../lib/db';
+import pool from "../../../lib/db";
 
 export default async function handler(req, res) {
   try {
-    const { rows } = await pool.query('SELECT * FROM carts');
+    const { rows } = await pool.query('SELECT * FROM users');
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error querying database:', error);
