@@ -1,9 +1,38 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {useRouter} from 'next/router'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default function Home() {
   const [data, setData] = useState({});
+  let [id,setId] = useState();
+  const router = useRouter();
+
+  useEffect(()=>{
+    let id1 = Cookies.get('id');
+    setId(id1);
+    async function getUser(){
+        try {
+            const res = await axios.get(`https://api.example.com/users/${userId}`);
+            const data = res.data;
+        
+            return {
+              props: {
+                user: data, 
+              },
+            };
+          } catch (error) {
+            console.error('Error fetching user data:', error);
+            return {
+              props: {
+                error: 'Failed to fetch user data',
+              },
+            };
+          }
+    }
+    getUser();
+  },[])
 
   function handleChange(e) {
     setData({ ...data, [e.target.id]: e.target.value });
@@ -12,12 +41,17 @@ export default function Home() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      let res = await axios.post("/api/users", data);
-      console.log(res.data);
+      // let res = await axios.put(`/api/users/update/${id}`, data);
+      // console.log(res.data);
+      // router.push('/user/list');
+    console.log(id)
+
     } catch (error) {
       console.error("There was an error submitting the form:", error);
     }
   }
+
+
 
   return (
     <div className="container mt-5">
@@ -33,6 +67,7 @@ export default function Home() {
             id="name"
             placeholder="Enter your name"
             onChange={handleChange}
+            value={data.name}
           />
         </div>
         <div className="mb-3">
@@ -45,6 +80,7 @@ export default function Home() {
             id="phone"
             onChange={handleChange}
             placeholder="Enter your phone number"
+            value={data.phone}
           />
         </div>
         <div className="mb-3">
@@ -57,32 +93,10 @@ export default function Home() {
             id="email"
             onChange={handleChange}
             placeholder="Enter your email address"
+            value={data.email}
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="age" className="form-label">
-            Age
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="age"
-            placeholder="Enter your age"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            onChange={handleChange}
-            placeholder="Enter your password"
-          />
-        </div>
+    
         <button type="submit" className="btn btn-primary">
           Submit
         </button>

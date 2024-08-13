@@ -1,9 +1,11 @@
 "use client";
 import { useState } from 'react';
+import {useRouter} from 'next/router'
 import axios from 'axios';
 
 export default function Home() {
   const [data, setData] = useState({});
+  const router = useRouter();
 
   function handleChange(e) {
     setData({ ...data, [e.target.id]: e.target.value });
@@ -14,6 +16,8 @@ export default function Home() {
     try {
       let res = await axios.post("/api/users/create", data);
       console.log(res.data);
+      router.push('/user/list');
+
     } catch (error) {
       console.error("There was an error submitting the form:", error);
     }

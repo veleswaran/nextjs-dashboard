@@ -1,7 +1,8 @@
+import Layout from "../components/layout/Layout";
+
 export default function Home(){
     return(
-        <div>
-            hi veleswaran
-        </div>
+        <Layout>
+        </Layout>
     )
 }
