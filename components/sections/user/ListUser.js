@@ -18,7 +18,7 @@ export default function ListUser() {
       console.error('Error fetching data:', error);
       setError('Failed to fetch data.');
     }
-  }, []);
+  }, [dlt]);
 
   const deleteData = useCallback(async (id) => {
     try {
