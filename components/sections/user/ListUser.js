@@ -32,7 +32,7 @@ export default function ListUser() {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [fetchData,dlt]);
 
   const handleDelete = (id) => deleteData(id);
   const handleEdit = (id) => {
