@@ -1,38 +1,10 @@
-"use client";
-import { useEffect, useState } from 'react';
-import {useRouter} from 'next/router'
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
-export default function Home() {
-  const [data, setData] = useState({});
-  let [id,setId] = useState();
+const EditUser = ({ user, user_id, error }) => {
+  const [data, setData] = useState(user);
   const router = useRouter();
-
-  useEffect(()=>{
-    let id1 = Cookies.get('id');
-    setId(id1);
-    async function getUser(){
-        try {
-            const res = await axios.get(`https://api.example.com/users/${userId}`);
-            const data = res.data;
-        
-            return {
-              props: {
-                user: data, 
-              },
-            };
-          } catch (error) {
-            console.error('Error fetching user data:', error);
-            return {
-              props: {
-                error: 'Failed to fetch user data',
-              },
-            };
-          }
-    }
-    getUser();
-  },[])
 
   function handleChange(e) {
     setData({ ...data, [e.target.id]: e.target.value });
@@ -41,21 +13,18 @@ export default function Home() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      // let res = await axios.put(`/api/users/update/${id}`, data);
-      // console.log(res.data);
-      // router.push('/user/list');
-    console.log(id)
-
+      await axios.put(`/api/users/update/${user_id}`, data);
+      router.push('/user/list');
     } catch (error) {
       console.error("There was an error submitting the form:", error);
     }
   }
 
-
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="container mt-5">
-      <h2>User Added Form</h2>
+      <h2>Edit User</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
@@ -67,7 +36,7 @@ export default function Home() {
             id="name"
             placeholder="Enter your name"
             onChange={handleChange}
-            value={data.name}
+            value={data.name || ''}
           />
         </div>
         <div className="mb-3">
@@ -80,7 +49,7 @@ export default function Home() {
             id="phone"
             onChange={handleChange}
             placeholder="Enter your phone number"
-            value={data.phone}
+            value={data.phone || ''}
           />
         </div>
         <div className="mb-3">
@@ -93,14 +62,16 @@ export default function Home() {
             id="email"
             onChange={handleChange}
             placeholder="Enter your email address"
-            value={data.email}
+            value={data.email || ''}
           />
         </div>
-    
+
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>
     </div>
   );
-}
+};
+
+export default EditUser;

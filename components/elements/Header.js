@@ -1,9 +1,10 @@
-import Link from 'next/link'
+import Link from 'next/link';
+
 const Header = () => {
   return (
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
       <div className="container-fluid">
-        <Link className="navbar-brand" href="javascript:void(0)">
+        <Link className="navbar-brand" href="/">
           Logo
         </Link>
         <button
@@ -11,31 +12,34 @@ const Header = () => {
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#mynavbar"
+          aria-controls="mynavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="navbar-collapse collapse" id="mynavbar">
+        <div className="collapse navbar-collapse" id="mynavbar">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" href="javascript:void(0)">
+              <Link className="nav-link" href="/user">
                 Students
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" href="javascript:void(0)">
+              <Link className="nav-link" href="/attendance">
                 Attendance
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" href="javascript:void(0)">
+              <Link className="nav-link" href="/about">
                 About Us
               </Link>
             </li>
           </ul>
-          
         </div>
       </div>
     </nav>
   );
 };
+
 export default Header;

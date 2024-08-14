@@ -2,12 +2,12 @@ import Head from "next/head"
 import Header from "../elements/Header"
 import Footer from "../elements/Footer"
 
-const Layout=({child})=>{
+const Layout=({children})=>{
     return(
         <div>
             <Header/>
             <main className="main" >
-                {child}
+                {children}
             </main>
             <Footer/>
         </div>

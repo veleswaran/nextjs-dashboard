@@ -2,11 +2,11 @@ import pool from "../../../lib/db";
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { name, phone, email } = req.body;
+    const { name, phone, email ,batch} = req.body;
     try {
       const result = await pool.query(
-        'INSERT INTO users (name, phone, email) VALUES ($1, $2, $3) RETURNING *',
-        [name, phone, email]
+        'INSERT INTO users (name, phone, email, batch) VALUES ($1, $2, $3,$4) RETURNING *',
+        [name, phone, email,batch]
       );
       res.status(201).json(result.rows[0]);
     } catch (error) {
