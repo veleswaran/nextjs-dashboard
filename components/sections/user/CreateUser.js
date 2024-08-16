@@ -17,9 +17,9 @@ const formFields = [
     type: 'select', 
     label: 'Batch',
     options: [
-      { value: 'morning', label: 'Morning' },
-      { value: 'evening', label: 'Evening' },
-      { value: 'afternoon', label: 'Afternoon' }
+      { value: '1', label: 'Morning' },
+      { value: '2', label: 'Evening' },
+      { value: '3', label: 'Afternoon' }
     ],
   },
   {
@@ -27,6 +27,12 @@ const formFields = [
     type: 'email',
     label: 'Email',
     placeholder: 'Enter your email address',
+  },
+  {
+    id: 'password',
+    type: 'password',
+    label: 'Password',
+    placeholder: 'Enter your password ',
   },
 ];
 
@@ -43,7 +49,7 @@ export default function CreateUser() {
       e.preventDefault();
       console.log(data)
       try {
-        const res = await axios.post('/api/users/create', data);
+        const res = await axios.post('/api/users', data);
         console.log(res.data);
         router.push('/user');
       } catch (error) {

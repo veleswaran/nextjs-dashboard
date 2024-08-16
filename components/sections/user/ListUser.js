@@ -12,6 +12,7 @@ export default function ListUser() {
   const fetchData = useCallback(async () => {
     try {
       const res = await axios.get('/api/users');
+      console.log(res.data)
       setData(res.data);
       setError(null);
     } catch (error) {
@@ -22,7 +23,7 @@ export default function ListUser() {
 
   const deleteData = useCallback(async (id) => {
     try {
-      await axios.delete(`/api/users/delete/${id}`);
+      await axios.delete(`/api/users/${id}`);
       setDlt(prev => !prev);
     } catch (error) {
       console.error('Error deleting data:', error);
@@ -56,7 +57,6 @@ export default function ListUser() {
               <th>Name</th>
               <th>Phone</th>
               <th>Email</th>
-              <th>Batch</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -66,7 +66,6 @@ export default function ListUser() {
                 <td>{item.name}</td>
                 <td>{item.phone}</td>
                 <td>{item.email}</td>
-                <td>{item.batch}</td>
                 <td>
                   <button
                     className="btn btn-danger me-2"

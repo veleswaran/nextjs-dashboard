@@ -10,16 +10,17 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: "Invalid or missing ID" });
         }
         try {
-            const user = await prisma.user.findUnique({
+            const student = await prisma.students.findUnique({
                 where: { id: parseInt(id, 10) },
+                include: { batch: true, user: true, attendance: true } 
             });
-            if (user) {
-                res.status(200).json(user);
+            if (student) {
+                res.status(200).json(student);
             } else {
-                res.status(404).json({ error: "User not found" });
+                res.status(404).json({ error: "Student not found" });
             }
         } catch (err) {
-            console.error('Error fetching user:', err);
+            console.error('Error fetching student:', err);
             res.status(500).json({ error: 'Database query failed' });
         }
     } else if (req.method === "DELETE") {
@@ -27,27 +28,27 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: "Invalid or missing ID" });
         }
         try {
-            const user = await prisma.user.delete({
+            const student = await prisma.students.delete({
                 where: { id: parseInt(id, 10) },
             });
-            res.status(200).json({ message: "Deleted successfully", user });
+            res.status(200).json({ message: "Deleted successfully", student });
         } catch (err) {
-            console.error('Error deleting user:', err);
+            console.error('Error deleting student:', err);
             res.status(500).json({ error: 'Database delete failed' });
         }
     } else if (req.method === "PUT") {
-        const { name, email, phone, password } = req.body;
-        if (!id || isNaN(parseInt(id, 10)) || !name || !email || !password) {
+        const { batchId, userId } = req.body;
+        if (!id || isNaN(parseInt(id, 10)) || batchId === undefined || userId === undefined) {
             return res.status(400).json({ error: "Invalid input" });
         }
         try {
-            const user = await prisma.user.update({
+            const student = await prisma.students.update({
                 where: { id: parseInt(id, 10) },
-                data: { name, email, phone, password },
+                data: { batchId, userId },
             });
-            res.status(200).json({ message: "Updated successfully", user });
+            res.status(200).json({ message: "Updated successfully", student });
         } catch (error) {
-            console.error('Error updating user:', error);
+            console.error('Error updating student:', error);
             res.status(500).json({ error: 'Database update failed' });
         }
     } else {
