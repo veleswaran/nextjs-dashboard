@@ -1,5 +1,6 @@
-import EditUser from "../../components/sections/EditUser";
+
 import Layout from '../../components/layout/Layout';
+import EditUser from '../../components/sections/user/EditUser';
 
 export default function UserPage({ user, user_id, error }) {
   return (
