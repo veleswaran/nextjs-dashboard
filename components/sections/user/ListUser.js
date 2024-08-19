@@ -36,9 +36,17 @@ export default function ListUser() {
   }, [fetchData,dlt]);
 
   const handleDelete = (id) => deleteData(id);
-  const handleEdit = (id) => {
-    router.push(`/user/edit/${id}`);
-  };
+
+  const EditData = useCallback(async (id) => {
+    try {
+      router.push(`/user/edit/${id}`)
+      setDlt(null);
+    } catch (error) {
+      console.error('Error deleting data:', error);
+      setError('Failed to delete data.');
+    }
+  }, []);
+  const handleEdit = (id) => EditData(id)
 
   if (error) return <div className="alert alert-danger">Error: {error}</div>;
 
