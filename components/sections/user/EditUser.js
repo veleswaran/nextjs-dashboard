@@ -13,7 +13,7 @@ const EditUser = ({ user, user_id, error }) => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await axios.put(`/api/users/update/${user_id}`, data);
+      await axios.put(`/api/users/update/${user_id}`, data);                                                                                                                                                                                                                                                                                                                                                                     
       router.push('/user/list');
     } catch (error) {
       console.error("There was an error submitting the form:", error);
