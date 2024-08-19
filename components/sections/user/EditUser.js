@@ -1,27 +1,39 @@
-import { useState } from 'react';
+import { useCallback,useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
-const EditUser = ({ user, user_id, error }) => {
-  const [data, setData] = useState(user);
+const EditUser = ({ user_id }) => {
+  const [data, setData] = useState({});
   const router = useRouter();
 
   function handleChange(e) {
     setData({ ...data, [e.target.id]: e.target.value });
   }
 
+  const fetchData = useCallback(async () => {
+    try {
+      const res = await axios.get(`/api/users/${user_id}`);
+      console.log(res.data);
+      setData(res.data);
+      setError(null);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError('Failed to fetch data');
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await axios.put(`/api/users/${user_id}`, data);                                                                                                                                                                                                                                                                                                                                                                     
+      await axios.put(`/api/users/${user_id}`, data);
       router.push('/user');
     } catch (error) {
-      console.error("There was an error submitting the form:", error);
+      console.error('There was an error submitting the form:', error);
     }
-  }
-
-  if (error){
-    return <div>Error: {error}</div>;
   }
 
   return (

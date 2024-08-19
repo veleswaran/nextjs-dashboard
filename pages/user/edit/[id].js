@@ -1,34 +1,16 @@
+import { useRouter } from "next/router";
 import Layout from "../../../components/layout/Layout";
 import EditUser from "../../../components/sections/user/EditUser";
-import axios from 'axios';
 
-export async function getServerSideProps(context) {
-  const { id } = context.query;
+export default function UserPage() {
+  const router = useRouter();
+  const id = router.query.id;
 
-  try {
-    const res = await axios.get(`/api/users/${id}`);
-    const data = res.data;
-
-    return {
-      props: {
-        user: data,
-        user_id: id,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    return {
-      props: {
-        error: error,
-      },
-    };
-  }
-}
-
-export default function UserPage({ user, user_id, error }) {
+  if(!id) return <div>loading....</div>
+  
   return (
     <Layout>
-      <EditUser user={user} user_id={user_id} error={error} />
+      <EditUser user_id={id} />
     </Layout>
   );
 }
