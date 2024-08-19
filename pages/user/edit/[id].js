@@ -6,7 +6,7 @@ export async function getServerSideProps(context) {
   const { id } = context.query;
 
   try {
-    const res = await axios.get(`http://localhost:3000/api/users/${id}`);
+    const res = await axios.get(`/api/users/${id}`);
     const data = res.data;
 
     return {
