@@ -19,8 +19,8 @@ export async function getServerSideProps(context) {
     console.log('Error fetching user data:', error);
     return {
       props: {
-        error: 'Failed to fetch user data',
-        message: error
+        error: error,
+   
       },
     };
   }

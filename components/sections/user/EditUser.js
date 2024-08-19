@@ -20,7 +20,10 @@ const EditUser = ({ user, user_id, error }) => {
     }
   }
 
-  if (error) return <div>Error: {error}</div>;
+  if (error){
+    console.log(error)
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="container mt-5">
