@@ -20,6 +20,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         error: 'Failed to fetch user data',
+        message: error
       },
     };
   }
