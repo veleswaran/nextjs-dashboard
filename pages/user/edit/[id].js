@@ -16,11 +16,10 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.log('Error fetching user data:', error);
+    console.error('Error fetching user data:', error);
     return {
       props: {
         error: error,
-   
       },
     };
   }
