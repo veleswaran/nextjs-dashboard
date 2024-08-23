@@ -1,9 +1,10 @@
+import HomeElement from "../components/elements/HomeElement";
 import Layout from "../components/layout/Layout";
 
 export default function Home(){
     return(
         <Layout>
-            <h1>this is index page</h1>
+            <HomeElement/>
         </Layout>
     )
 }

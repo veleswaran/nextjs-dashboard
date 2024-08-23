@@ -60,7 +60,7 @@ export default function ListUser() {
   return (
     <div className="container mt-5">
       <h2 className="mb-4">User Information</h2>
-      <Link className="btn btn-primary" href="/register">Add User</Link>
+      <Link className="btn btn-primary mb-4" href="/register">Add User</Link>
       
       {data.length === 0 ? (
         <p>Loading...</p>
@@ -72,7 +72,6 @@ export default function ListUser() {
               <th>Name</th>
               <th>Phone</th>
               <th>Email</th>
-              <th>Password</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -82,7 +81,6 @@ export default function ListUser() {
                 <td>{item.name}</td>
                 <td>{item.phone}</td>
                 <td>{item.email}</td>
-                <td>{item.password}</td>
                 <td>
                   <button
                     className="btn btn-danger me-2"

@@ -6,18 +6,19 @@ import { useEffect, useState } from 'react';
 
 const Header = () => {
   let router = useRouter();
-  let [token,setToken] = useState(null);
-  useEffect(()=>{
-    let t = Cookies.get("vel");
-    console.log(t)
+  let [token, setToken] = useState(null);
+  useEffect(() => {
+    let t = Cookies.get('vel');
+    console.log(t);
     setToken(t);
-  },[])
-  async function handleLogout(){
+  }, []);
+  async function handleLogout(e) {
+    e.preventDefault();
     try {
       await axios.get('/api/auth/logout');
       Cookies.remove('vel');
       setToken(null);
-      router.push("/");
+      router.push('/');
     } catch (error) {
       console.error('There was an error submitting the form:', error);
     }
@@ -28,17 +29,7 @@ const Header = () => {
         <Link className="navbar-brand" href="/">
           Logo
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mynavbar"
-          aria-controls="mynavbar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+
         <div className="navbar-collapse collapse" id="mynavbar">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
@@ -56,32 +47,44 @@ const Header = () => {
                 About Us
               </Link>
             </li>
+          </ul>
+          <ul className="navbar-nav ms-auto me-5">
             {token !== undefined ? (
               <li className="nav-item">
-                <div className="nav-link" onClick={handleLogout}>
+                <Link className="nav-link" onClick={handleLogout} href='#'>
                   logout
-                </div>
+                </Link>
               </li>
             ) : (
               <>
-              <li className="nav-item">
-                <Link className="nav-link" href="/login">
-                  login
-                </Link>
-              </li>
-               <li className="nav-item">
-               <Link className="nav-link" href="/register">
-                 Register
-               </Link>
-             </li>
-             </>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/login">
+                    login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/register">
+                    Register
+                  </Link>
+                </li>
+              </>
             )}
           </ul>
         </div>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mynavbar"
+          aria-controls="mynavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
       </div>
     </nav>
   );
 };
-
 
 export default Header;
