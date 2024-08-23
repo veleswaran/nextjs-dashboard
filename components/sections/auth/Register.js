@@ -2,7 +2,6 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import Layout from '../../layout/Layout';
 
 const formFields = [
   { id: 'name', type: 'text', label: 'Name', placeholder: 'Enter your name' },
@@ -36,7 +35,7 @@ const formFields = [
   },
 ];
 
-export default function CreateUser() {
+export default function Register() {
   const [data, setData] = useState({});
   const router = useRouter();
 

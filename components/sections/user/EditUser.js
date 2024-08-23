@@ -20,7 +20,7 @@ const EditUser = ({ user_id }) => {
       console.error('Error fetching data:', error);
       setError('Failed to fetch data');
     }
-  }, []);
+  }, [user_id]);
 
   useEffect(() => {
     fetchData();

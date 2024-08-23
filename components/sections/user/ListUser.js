@@ -12,12 +12,19 @@ export default function ListUser() {
   const fetchData = useCallback(async () => {
     try {
       const res = await axios.get('/api/users');
-      console.log(res.data)
+      console.log(res.data) 
       setData(res.data);
       setError(null);
     } catch (error) {
-      console.error('Error fetching data:', error);
-      setError('Failed to fetch data.');
+      if(error.response.status === 401){
+        router.push("/401");
+        console.error('Error fetching data:', error);
+        setError('Failed to fetch data.');
+      }else{
+        console.error('Error fetching data:', error);
+        setError('Failed to fetch data.');
+      }
+    
     }
   });
 
@@ -53,7 +60,7 @@ export default function ListUser() {
   return (
     <div className="container mt-5">
       <h2 className="mb-4">User Information</h2>
-      <Link className="btn btn-primary" href="/user/create">Add User</Link>
+      <Link className="btn btn-primary" href="/register">Add User</Link>
       
       {data.length === 0 ? (
         <p>Loading...</p>
@@ -65,6 +72,7 @@ export default function ListUser() {
               <th>Name</th>
               <th>Phone</th>
               <th>Email</th>
+              <th>Password</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -74,6 +82,7 @@ export default function ListUser() {
                 <td>{item.name}</td>
                 <td>{item.phone}</td>
                 <td>{item.email}</td>
+                <td>{item.password}</td>
                 <td>
                   <button
                     className="btn btn-danger me-2"

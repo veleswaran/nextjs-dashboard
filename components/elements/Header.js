@@ -1,6 +1,27 @@
 import Link from 'next/link';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
+  let router = useRouter();
+  let [token,setToken] = useState(null);
+  useEffect(()=>{
+    let t = Cookies.get("vel");
+    console.log(t)
+    setToken(t);
+  },[])
+  async function handleLogout(){
+    try {
+      await axios.get('/api/auth/logout');
+      Cookies.remove('vel');
+      setToken(null);
+      router.push("/");
+    } catch (error) {
+      console.error('There was an error submitting the form:', error);
+    }
+  }
   return (
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
       <div className="container-fluid">
@@ -18,7 +39,7 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="mynavbar">
+        <div className="navbar-collapse collapse" id="mynavbar">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <Link className="nav-link" href="/user">
@@ -35,11 +56,25 @@ const Header = () => {
                 About Us
               </Link>
             </li>
+            {token !== undefined ? (
+              <li className="nav-item">
+                <div className="nav-link" onClick={handleLogout}>
+                  logout
+                </div>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <Link className="nav-link" href="/login">
+                  login
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
     </nav>
   );
 };
+
 
 export default Header;

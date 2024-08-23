@@ -2,26 +2,9 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import Layout from '../../layout/Layout';
+import Cookies from 'js-cookie';
 
 const formFields = [
-  { id: 'name', type: 'text', label: 'Name', placeholder: 'Enter your name' },
-  {
-    id: 'phone',
-    type: 'tel',
-    label: 'Phone',
-    placeholder: 'Enter your phone number',
-  },
-  {
-    id: 'batch',
-    type: 'select', 
-    label: 'Batch',
-    options: [
-      { value: '1', label: 'Morning' },
-      { value: '2', label: 'Evening' },
-      { value: '3', label: 'Afternoon' }
-    ],
-  },
   {
     id: 'email',
     type: 'email',
@@ -36,7 +19,7 @@ const formFields = [
   },
 ];
 
-export default function CreateUser() {
+export default function Login() {
   const [data, setData] = useState({});
   const router = useRouter();
 
@@ -49,9 +32,10 @@ export default function CreateUser() {
       e.preventDefault();
       console.log(data)
       try {
-        const res = await axios.post('/api/auth/register', data);
-        console.log(res.data);
-        router.push('/user');
+        const res = await axios.post('/api/auth/login', data);
+        console.log(res.data.token);
+        Cookies.set('vel', res.data.token, { expires: 7 });
+        router.push("user")
       } catch (error) {
         console.error('There was an error submitting the form:', error);
       }
@@ -101,3 +85,4 @@ export default function CreateUser() {
       </div>
   );
 }
+
