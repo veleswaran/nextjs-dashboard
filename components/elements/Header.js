@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const Header = () => {
   let router = useRouter();
@@ -24,46 +25,46 @@ const Header = () => {
     }
   }
   return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" href="/">
-          Logo
+        <Link className="navbar-brand ms-4" href="/">
+          <Image src='/images/logo.png' width={150} height={55} alt='logo'/>
         </Link>
 
         <div className="navbar-collapse collapse" id="mynavbar">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" href="/user">
+            <li className="nav-item ms-2">
+              <Link className="nav-link btn1" href="/user">
                 Students
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="/attendance">
+            <li className="nav-item ms-2">
+              <Link className="nav-link btn1" href="/attendance">
                 Attendance
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="/about">
+            <li className="nav-item ms-2">
+              <Link className="nav-link btn1" href="/about">
                 About Us
               </Link>
             </li>
           </ul>
           <ul className="navbar-nav ms-auto me-5">
             {token !== undefined ? (
-              <li className="nav-item">
-                <Link className="nav-link" onClick={handleLogout} href='#'>
+              <li className="nav-item ms-2">
+                <Link className="nav-link btn1" onClick={handleLogout} href='#'>
                   logout
                 </Link>
               </li>
             ) : (
               <>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/login">
+                <li className="nav-item ms-2">
+                  <Link className="nav-link btn1" href="/login">
                     login
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/register">
+                <li className="nav-item ms-2">
+                  <Link className="nav-link btn1" href="/register">
                     Register
                   </Link>
                 </li>

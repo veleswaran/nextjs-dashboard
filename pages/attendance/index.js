@@ -5,7 +5,6 @@ import Batches from "../../components/sections/attendance/Batches"
 const home = ()=>{
     return(
         <Layout>
-            {/* <ListAttendance/> */}
             <Batches/>
         </Layout>
     )

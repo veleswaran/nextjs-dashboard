@@ -23,7 +23,7 @@
 }
 .ani-main{
     position: relative;
-    background-color: rgb(6, 90, 90);
+    background-color: white;
     margin: 0;
     padding: 1px;
     height: 90vh;
@@ -33,7 +33,7 @@
     background-color: white;
     margin-top: 50px;
     position: relative;
-    background-image: -webkit-linear-gradient(rgb(56, 4, 4),rgb(205, 207, 205),rgb(97, 97, 107));
+    background-color: white;
 }
 @property --angle{
     syntax: "<angle>";
@@ -64,4 +64,169 @@
 }
 .animation1::before{
     filter: blur(1.5rem) opacity(0.7);
+}
+
+/* home page */
+
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #000;
+}
+.wrapper a{
+    position: relative;
+    display: inline-block;
+    padding: 25px 30px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    color: #03e9f4;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: .5s;
+    overflow: hidden;
+    margin-right: 70px;
+    letter-spacing:4px;
+}
+.wrapper a:hover{
+    background-color: #03e9f4;
+    color: #050801;
+    box-shadow: 0 0  5px #03e9f4,
+                0 0  25px #03e9f4,
+                0 0  50px #03e9f4,
+                0 0  200px #03e9f4;
+    -webkit-box-reflect: below 1px linear-gradient(transparent,#0005);
+}
+.wrapper a:first-child{
+    filter: hue-rotate(225deg);
+}
+.wrapper a:last-child{
+    filter: hue-rotate(90deg);
+}
+.wrapper a span{
+    position: absolute;
+    display: block;
+   
+}
+.wrapper a span:nth-child(1){
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-image: linear-gradient(90deg,transparent,#03e9f4);
+    animation: span1 1s linear infinite;
+}
+@keyframes span1 {
+    from{
+        left: -100%;
+    }to{
+        left: 100%;
+    }
+}
+.wrapper a span:nth-child(2){
+    top: 100%;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background-image: linear-gradient(180deg,transparent,#03e9f4);
+    animation: span2 1s linear infinite;
+    animation-delay: .5s;
+}
+@keyframes span2 {
+    from{
+        top: -100%;
+    }to{
+        top: 100%;
+    }
+}
+.wrapper a span:nth-child(3){
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-image: linear-gradient(270deg,transparent,#03e9f4);
+    animation: span3 1s linear infinite;
+    animation-delay: .75s;
+}
+@keyframes span3 {
+    from{
+        right: -100%;
+    }to{
+        right: 100%;
+    }
+}
+.wrapper a span:nth-child(4){
+    bottom: -100%;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background-image: linear-gradient(360deg,transparent,#03e9f4);
+    animation: span4 1s linear infinite;
+    animation-delay: .5s;
+}
+@keyframes span4 {
+    from{
+        bottom: -100%;
+    }to{
+        bottom: 100%;
+    }
+}
+
+/* nav buttons */
+.btn1{
+    padding: 10px 40px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    color: #333;
+    z-index: 0;
+}
+.btn1::after{
+    content:"";
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #f8f9fa;
+    left:0;
+    top: 0;
+    border-radius: 10px;
+
+}.btn1::before{
+    content:"";
+    background: linear-gradient(
+        45deg,
+        #ff0000,#ff7300,#fffb00,#48ff00,#00ffd5,#002bff,#ff00c8,#ff0000);
+    position: absolute;
+    top:-2px;
+    left: -2px;
+    z-index: -1;
+    background-size: 600%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    filter: blur(5px);
+    border-radius: 12px;
+    animation: glowing 20s linear infinite;
+    transition:  opacity .3s ease-in-out;
+    opacity: 0;
+}
+
+@keyframes glowing {
+    0%{
+        background-position: 0 0;
+    }
+    50%{
+        background-position: 400% 0;
+    }
+    100%{
+        background-position: 0 0;
+    }
+    
+}
+.btn1:hover::before{
+    opacity: 1;
 }
