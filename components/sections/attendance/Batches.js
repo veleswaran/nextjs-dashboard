@@ -10,8 +10,8 @@ const Batches = () => {
   return (
     <div class="wrapper">
       {batch &&
-        batch.map((val) => (
-          <a href="" >
+        batch.map((val,index) => (
+          <a href="" key={index}>
             <span></span>
             <span></span>
             <span></span>
