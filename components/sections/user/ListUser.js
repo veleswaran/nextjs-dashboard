@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function ListUser() {
   const [data, setData] = useState([]);
@@ -12,26 +12,25 @@ export default function ListUser() {
   const fetchData = useCallback(async () => {
     try {
       const res = await axios.get('/api/users');
-      console.log(res.data) 
+      console.log(res.data);
       setData(res.data);
       setError(null);
     } catch (error) {
-      if(error.response.status === 401){
-        router.push("/401");
+      if (error.response.status === 401) {
+        router.push('/401');
         console.error('Error fetching data:', error);
         setError('Failed to fetch data.');
-      }else{
+      } else {
         console.error('Error fetching data:', error);
         setError('Failed to fetch data.');
       }
-    
     }
   });
 
   const deleteData = useCallback(async (id) => {
     try {
       await axios.delete(`/api/users/${id}`);
-      setDlt(prev => !prev);
+      setDlt((prev) => !prev);
     } catch (error) {
       console.error('Error deleting data:', error);
       setError('Failed to delete data.');
@@ -40,65 +39,53 @@ export default function ListUser() {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData,dlt]);
+  }, [fetchData, dlt]);
 
   const handleDelete = (id) => deleteData(id);
 
   const EditData = useCallback(async (id) => {
     try {
-      router.push(`/user/edit/${id}`)
+      router.push(`/user/edit/${id}`);
       setDlt(null);
     } catch (error) {
       console.error('Error deleting data:', error);
       setError('Failed to delete data.');
     }
   }, []);
-  const handleEdit = (id) => EditData(id)
+  const handleEdit = (id) => EditData(id);
 
   if (error) return <div className="alert alert-danger">Error: {error}</div>;
 
   return (
     <div className="container mt-5">
       <h2 className="mb-4">User Information</h2>
-      <Link className="btn btn-primary mb-4" href="/register">Add User</Link>
-      
+      <Link className="btn btn-primary mb-4" href="/register">
+        Add User
+      </Link>
+
       {data.length === 0 ? (
         <p>Loading...</p>
       ) : (
-
-        <table className="table table-striped border border-dark">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item) => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.phone}</td>
-                <td>{item.email}</td>
-                <td>
-                  <button
-                    className="btn btn-danger me-2"
-                    onClick={() => handleDelete(item.id)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="btn btn-warning"
-                    onClick={() => handleEdit(item.id)}
-                  >
-                    Update
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className='container row mb-5'>
+          {data.map((val,index) => (
+            <div class="col-lg-3 col-md-6 col-sm-12 container mt-5" key={index}>
+              <div class="card" style={{ width: '100%' }}>
+                <img
+                  src="images/401.jpg"
+                  class="card-img-top"
+                  alt="Card image"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{val.name}</h5>
+                  <p class="card-text">{val.email}</p>
+                  <a href="#" class="btn btn-primary">
+                    More information
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
