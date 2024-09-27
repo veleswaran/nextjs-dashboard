@@ -38,3 +38,9 @@ model Attendance {
   studentId  Int
   student    Students @relation(fields: [studentId], references: [id])
 }
+
+model Image {
+  id     Int    @id @default(autoincrement())
+  name   String
+  data   Bytes
+}
